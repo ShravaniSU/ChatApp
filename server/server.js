@@ -29,7 +29,7 @@ io.on('connection', (socket) => {
     users.addUser(socket.id, params.name, params.room);
 
     io.to(params.room).emit('updateUsersList', users.getUserList(params.room));
-    socket.emit('newMessage', generateMessage('Admin', `Welocome to ${params.room}!`));
+    socket.emit('newMessage', generateMessage('Admin', `Welcome to ${params.room}!`));
 
     socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', "New User Joined!"));
 

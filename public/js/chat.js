@@ -39,12 +39,16 @@ socket.on('updateUsersList', function (users) {
 
 socket.on('newMessage', function(message) {
   const formattedTime = moment(message.createdAt).format('LT');
-  const template = document.querySelector('#message-template').innerHTML;
-  const html = Mustache.render(template, {
-    from: message.from,
-    text: message.text,
-    createdAt: formattedTime
-  });
+  //const template = document.querySelector('#message-template').innerHTML;
+  const html = `<li class="message">
+                  <div class="message__title">
+                      <h4>${message.from}</h4>
+                      <span>${formattedTime}</span>
+                  </div>
+                  <div class="message__body">
+                      <p>${message.text}</p>
+                  </div>
+                </li>`
 
   const div = document.createElement('div');
   div.innerHTML = html
@@ -58,11 +62,15 @@ socket.on('newLocationMessage', function(message) {
   console.log("newLocationMessage", message);
 
   const template = document.querySelector('#location-message-template').innerHTML;
-  const html = Mustache.render(template, {
-    from: message.from,
-    url: message.url,
-    createdAt: formattedTime
-  });
+  const html = `<li class="message">
+  <div class="message__title">
+      <h4>${message.from}</h4>
+      <span>${formattedTime}}</span>
+  </div>
+  <div class="message__body">
+      <a href="${message.url}" target="_blank">My current location</a>
+  </div>
+</li>`
 
   const div = document.createElement('div');
   div.innerHTML = html
